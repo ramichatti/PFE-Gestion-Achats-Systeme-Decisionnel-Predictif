@@ -1,0 +1,85 @@
+*{
+  font-family: serif;
+}
+.custom-alert {
+    font-size: 15px; /* Changer la taille de la police */
+    margin: 15px; /* Ajouter une marge de 10px autour de la div */
+    padding: 15px; /* Ajouter un rembourrage de 10px à l'intérieur de la div */
+    text-align: center; /* Centre le texte à l'intérieur de l'alerte */
+}
+.small-input {
+    width: 150px; /* Vous pouvez ajuster cette valeur en fonction de vos besoins */
+    margin-left: 600px;
+}
+
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Ombre au milieu de l'écran */
+    z-index: 10000; /* Assure que l'alerte apparaîtra au-dessus de tout autre contenu */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Couleur verte pour les alertes de succès */
+    color: #155724; /* Couleur du texte pour les alertes de succès */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Couleur rouge pour les alertes d'erreur */
+    color: #721c24; /* Couleur du texte pour les alertes d'erreur */
+}
+
+.small-input {
+    width: 150px; /* Vous pouvez ajuster cette valeur en fonction de vos besoins */
+    margin-left: 800px;
+}
+.custom-card {
+    margin-top: 150px; /* Adjust the margin-top value as needed */
+}
+html {
+    height:100%;
+  }
+  
+  body {
+    margin:0;
+  }
+  
+  .bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #dfedf0 50%, #bed3d6 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+  }
+  
+  .bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+  }
+  
+  .bg3 {
+    animation-duration:5s;
+  }
+ 
+  
+  h1 {
+    font-family:monospace;
+  }
+  
+  @keyframes slide {
+    0% {
+      transform:translateX(-25%);
+    }
+    100% {
+      transform:translateX(25%);
+    }
+  }

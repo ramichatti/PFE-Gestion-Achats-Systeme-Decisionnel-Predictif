@@ -1,0 +1,79 @@
+<div class="header">
+<div class="text-box">
+  <h1> {{ information_societe.nom }}</h1>
+  <br>
+  <p> {{ information_societe.bio }}  <br><br> </p>
+  
+  <a (click)="scrollToAboutSection()" class="hero-btn">
+    <i class="bi bi-info-square"></i>
+    &nbsp;&nbsp;À propos de nous&nbsp;&nbsp;
+  </a>
+</div>
+</div>
+
+
+<div id ="about" class="header1">
+  <div  class="about">
+    <h4>À propos de nous</h4>
+    <p>Nous sommes là pour vous fournir toutes les informations dont vous pourriez avoir besoin afin de dissiper toute hésitation. Vous pouvez nous contacter par téléphone, nous envoyer un message ou même nous rendre visite en personne. Notre objectif est de répondre à toutes vos questions et de vous fournir un service personnalisé pour vous aider dans vos démarches.</p>
+  </div>
+    <div class="slider">
+      <section class="contact">
+        <div class="row">
+            <div class="contact-col">
+              <div>
+                <i class="bi bi-building"></i>
+                <span><h5> {{ information_societe.matricule_fiscale }}</h5>
+                <p>Matricule fiscale.  </p></span>
+              </div>
+              <div>
+                <i class="bi bi-house-door-fill"></i>
+                <span><h5>{{ information_societe.adresse }}</h5>
+                <p>Toujours disponible sur cette adresse. </p></span>
+              </div>
+            <div>
+              <i class="bi bi-telephone-fill"></i>
+                <span><h5>{{ information_societe.tel }}</h5>
+                <p>Téléphone Du lundi jusqu'a samedi 24/24h. </p></span>
+            </div>
+            <div>
+              <i class="bi bi-envelope-fill"></i>
+                <span><h5>{{ information_societe.email }}</h5>
+                <p>N'hésitez pas de nos contactez sur cette mail. </p></span>
+            </div>
+            
+         </div>
+        </div>
+      </section>
+
+      <div class="wrapper">
+        <div class="img-area">
+          <img [src]="imageUrl">
+          <img [src]="imageUrl"> 
+          <img [src]="imageUrl"> 
+          <img [src]="imageUrl">
+        </div>
+      </div>
+    </div>
+
+  
+</div>
+<section class="cta">
+  <h1>Nous nous engageons à être votre meilleure application d'achat, offrant une expérience sans pareille pour répondre à tous vos besoins.
+    </h1>
+    <p style="color: white; font-weight: bold; font-size: 18px;">Nous serions ravis de répondre à vos questions par mail :</p>
+    <br>
+    <a (click)="openGmailCompose()" class="hero-btn"><i class="bi bi-envelope"></i>
+      &nbsp;&nbsp;Envoyer un email&nbsp;&nbsp;
+    </a>
+</section>
+
+<!-- footer --> 
+
+<section class="footer">
+    <div class="icons">
+      <p style="color: #324e58; text-transform: uppercase;">Meilleur service pour faciliter tous vos travaux.</p>
+    </div>
+</section>
+
+

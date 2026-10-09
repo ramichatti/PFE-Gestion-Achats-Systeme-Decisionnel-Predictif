@@ -1,0 +1,183 @@
+/* .navbar-brand img {
+    border-radius: 50% 50% 50% 50%;
+  } */
+
+  .custom-alert {
+    font-size: 15px; /* Changer la taille de la police */
+    margin: 15px; /* Ajouter une marge de 10px autour de la div */
+    padding: 15px; /* Ajouter un rembourrage de 10px à l'intérieur de la div */
+    text-align: center; /* Centre le texte à l'intérieur de l'alerte */
+}
+.small-input {
+    width: 150px; /* Vous pouvez ajuster cette valeur en fonction de vos besoins */
+    margin-left: 600px;
+}
+
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Ombre au milieu de l'écran */
+    z-index: 10000; /* Assure que l'alerte apparaîtra au-dessus de tout autre contenu */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Couleur verte pour les alertes de succès */
+    color: #155724; /* Couleur du texte pour les alertes de succès */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Couleur rouge pour les alertes d'erreur */
+    color: #721c24; /* Couleur du texte pour les alertes d'erreur */
+}
+
+.color-changing {
+  user-select: none;
+  font-size: 22px;
+  background: repeating-linear-gradient(-45deg, #ffffff 10%, #ffffff 7.14%, rgb(255, 255, 255) 14.28%, #ffffff 21.4%, #ffffff 28.56%);
+  background-size: 400% 400%; /* Taille du dégradé */
+  -webkit-text-fill-color: transparent; /* Masquer le texte original */
+  -webkit-background-clip: text; /* Clip le fond au texte */
+  background-clip: text; /* Clip le fond au texte */
+  animation: colorChange 15s ease infinite; /* Animation de changement de couleur */
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+/* @keyframes colorChange {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+} */
+
+
+.cube-container {
+  perspective: 800px;
+  width: 55px; /* Diminuer la taille du conteneur du cube */
+  height: 50px; /* Diminuer la taille du conteneur du cube */
+  margin-left: 38px;
+
+}
+
+.cube {
+  position: relative;
+  width: 50px; /* Largeur du cube */
+  height: 50px; /* Hauteur du cube */
+  transform-style: preserve-3d;
+  animation: rotateCube 5s infinite;
+}
+
+.side {
+  position: absolute;
+  width: 50px; /* Largeur des côtés du cube */
+  height: 50px; /* Hauteur des côtés du cube */
+  border: 1px solid #222d2f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #0000ff, #ff00ff, #ff0000);
+  background-size: 400%;
+  backface-visibility: hidden;
+}
+
+.side img {
+  width: 50px; /* Taille des logos */
+  height: 50px; /* Taille des logos */
+}
+
+.front { transform: translateZ(25px); } /* Diminuer la distance de translation */
+.back { transform: rotateY(180deg) translateZ(25px); } /* Diminuer la distance de translation */
+.left { transform: rotateY(-90deg) translateZ(25px); } /* Diminuer la distance de translation */
+.right { transform: rotateY(90deg) translateZ(25px); } /* Diminuer la distance de translation */
+
+@keyframes rotateCube {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+#imagePreview {
+  display: block; /* Pour centrer l'image horizontalement */
+  margin: 0 auto; /* Pour centrer l'image horizontalement */
+  width: 50%; /* Largeur à 50% du conteneur parent */
+  height: auto; /* Hauteur automatique pour conserver les proportions de l'image */
+  border: 2px solid #ccc; /* Ajouter une bordure de 1px solide avec la couleur grise */
+  border-radius: 5px; /* Ajouter un arrondi aux coins */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ajouter une ombre légère */
+
+}
+
+.dropdown-menu {
+  background-color: #343a40; /* Couleur de fond lors du survol */
+}
+
+.dropdown-item {
+  color: #fff; /* Couleur du texte */
+  text-align: center;
+  background-color: #343a40; /* Couleur de fond par défaut */
+  padding: 9px 20px; /* Ajuster le padding selon vos besoins */
+  transition: background-color 0.5s ease; /* Transition en douceur de la couleur de fond */
+}
+
+.dropdown-item:hover {
+  background-color: #495057; /* Couleur de fond lors du survol */
+}
+
+.navbar {
+  position: fixed; /* Position fixe pour le maintenir stable */
+  width: 100%; /* Largeur totale */
+  background-color: transparent; /* Couleur de fond transparente */
+  transition: background-color 0.3s ease; /* Transition en douceur pour la couleur de fond */
+  z-index: 1000; /* Positionnez le navbar au-dessus de tout autre contenu */
+}
+
+.navbar.scrolled {
+  background-color: #222D2F; /* Change background color when scrolled */
+}
+
+.navbar-brand {
+  font-style: italic;
+  margin-right: 15px; /* Add margin to align other content properly */
+}
+
+.navbar-nav {
+  margin-right: auto; /* Move navbar-nav items to the left */
+}
+
+.nav-link {
+  color: #fff; /* Set link color to white */
+}
+
+/* Dropdown menu styles */
+.dropdown-menu {
+  background-color:#222D2F; /* Transparent background for dropdown menu */
+}
+
+.dropdown-item {
+  color: #fff; /* Couleur du texte de l'élément de menu déroulant en blanc */
+  background-color: #222D2F; /* Couleur de fond de l'élément de menu déroulant */
+}
+
+.dropdown-item:hover {
+  background-color: #acacacf7; /* Couleur de fond au survol */
+}
+
+/* Active link styles */
+.navbar-nav .active > .nav-link {
+  color: #fff; /* Change active link color to white */
+}
+
+/* Icon color */
+.bi {
+  color: #fff; /* Set icon color to white */
+}

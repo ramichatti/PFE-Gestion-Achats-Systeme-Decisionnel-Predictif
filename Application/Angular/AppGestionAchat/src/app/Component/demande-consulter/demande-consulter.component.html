@@ -1,0 +1,76 @@
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <div class="card-header  text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Flux d'approbation achats</div>
+                <div class="card-body">
+
+                    <!-- Description de l'utilisateur avec style -->
+                    <p class="card-text text-muted mb-3">
+                        Le système vous permet de gérer facilement les validations en attente. Passez en revue les détails et approuvez ou refusez chaque demande en un clic. Les demandeurs seront automatiquement informés par email de l'état de leur requête.          
+                    </p>
+
+                    
+                    <div style="overflow-y: auto; max-height: 300px;">
+                        <table class="table table-striped table-hover" >
+                            <thead class="table-dark" style="position: sticky; top: 0; ">
+                                <tr>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">N° Demande</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Demandeur</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Departement</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Date</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Produit</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Quantité</th>
+                                    <th class="text-center align-middle" colspan="2" style=" background-color: #5c838a;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody style="overflow-y: auto; max-height: calc(100% - 2.5em);">
+                                <ng-container *ngIf="demandes.length > 0; else emptyState">
+                                    <tr *ngFor="let demande of demandes">
+                                        <td   class="text-center align-middle">{{ demande.demandeId }}</td>
+                                    
+                                        <td ><img *ngIf="demande.user.image" [src]="convertImageToUrl(demande.user.image)" class="rounded-circle" width="50" height="50"> &nbsp;&nbsp;&nbsp;{{ demande.nom }} {{ demande.prenom }}</td>
+                                        <td  class="text-center align-middle">{{ demande.dept }}</td>
+                                        <td  class="text-center align-middle">{{ demande.date | date: 'yyyy-MM-dd' }}</td>
+                                        <td  class="text-center align-middle">{{ demande.produitName }}</td>
+                                    
+                                        <td  class="text-center align-middle">{{ demande.qte }}</td>
+                                    
+                                    <td  class="text-center align-middle">
+                                        <button type="button" class="btn btn-sm btn-success" (click)="updateDemandeStatut(demande.demandeId,'Accepté')">
+                                        Accepter
+                                        </button>
+                                    </td>
+                                    <td  class="text-center align-middle">
+                                        <button type="button" class="btn btn-sm btn-danger" (click)="updateDemandeStatut(demande.demandeId,'Refusé')">
+                                        Refuser
+                                        </button>
+                                    </td>
+
+                                    </tr>
+                                    </ng-container>
+                                    <ng-template #emptyState>
+                                        <tr>
+                                            <td colspan="12"  class="text-center align-middle">Aucune donnée disponible</td>
+                                        </tr>
+                                    </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-success my-3" role="alert" *ngIf="successMessage">
+    {{ successMessage }}
+</div>
+<div class="alert alert-danger my-3" role="alert" *ngIf="errorMessage">
+    {{ errorMessage }}
+</div>
+

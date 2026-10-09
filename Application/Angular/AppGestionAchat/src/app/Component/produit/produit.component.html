@@ -1,0 +1,207 @@
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <div class="card-header  text-white" style="font-family: serif; background-color:#5c838a; font-weight: bold;">Gestion des produits</div>
+                <div class="card-body">
+
+                    <!-- Modifiez votre HTML pour inclure une alerte Bootstrap -->
+
+                    <div class="alert alert-success my-3" role="alert" *ngIf="successMessageDelete">
+                        {{ successMessageDelete }}
+                    </div>
+                    <div class="alert alert-danger my-3" role="alert" *ngIf="errorMessageDelete">
+                        {{ errorMessageDelete }}
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="r-flex justify-content-end ">
+                            <button type="button" style="background-color: #5c838a; border: white;" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="bi bi-box-seam"></i></button>
+                       </div>
+                       <button type="button"  style="background-color: #5c838a; border: white;"class="btn btn-dark ms-2" (click)="refresh()">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                        
+                        <div class="input-group" >
+                            <select class="form-select small-input" id="searchcategorie" name="searchcategorie" [(ngModel)]="searchcategorie" (change)="searchProduct()">
+                                <option value="" disabled selected>Recherche par catégorie</option>
+                                <option value="Tissus">Tissus</option>
+                                <option value="Accessoires de couture">Accessoires de couture</option>
+                                <option value="Matériel de coupe">Matériel de coupe</option>
+                                <option value="Équipement de finition">Équipement de finition</option>
+                                <!-- Ajoutez d'autres options selon vos besoins -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <p class="card-text text-muted mb-3">
+                        Au cœur du processus de transmission des demandes d'achat dans le système réside la gestion des produits disponibles. Cela implique leur création, leur modification et leur suppression. Ainsi, vous pouvez aisément ajouter un produit à votre société, le modifier selon les besoins et le supprimer si nécessaire, afin de le rendre disponible pour les demandes d'achat ultérieures.
+                    </p>
+                    
+                    
+                    <!-- Ajouter -->
+                                        
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Nouveau produit</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="alert alert-success my-3" role="alert" *ngIf="successMessageAjoute">
+                                    {{ successMessageAjoute }}
+                                </div>
+                                <div class="alert alert-danger my-3" role="alert" *ngIf="errorMessageAjoute">
+                                    {{ errorMessageAjoute }}
+                                </div>
+                                
+                                <div class="modal-body p-4">
+                                    <form #produitForm="ngForm" (ngSubmit)="ajouterProduit()" class="row g-1000">
+                                        <!-- Première colonne -->
+                                        <div class="col-md-12">
+                                            <div class="mb-2">
+                                                <label for="nom" class="col-form-label">Nom :</label>
+                                                <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom" required placeholder="Entrez le nom du produit">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="mb-2">
+                                                <label for="reference" class="col-form-label">Référence :</label>
+                                                <input type="text" class="form-control" id="reference" name="reference" [(ngModel)]="reference" required placeholder="Entrez la référence du produit">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="mb-2">
+                                                <label for="categorie" class="col-form-label">Catégorie :</label>
+                                                <select class="form-select" id="categorie" name="categorie" [(ngModel)]="categorie" (change)="setDefaultDescription()" required>
+                                                    <option value="" disabled selected>Choisissez une catégorie</option>
+                                                    <option value="Tissus">Tissus</option>
+                                                    <option value="Accessoires de couture">Accessoires de couture</option>
+                                                    <option value="Matériel de coupe">Matériel de coupe</option>
+                                                    <option value="Équipement de finition">Équipement de finition</option>
+                                                    <!-- Ajoutez d'autres options selon vos besoins -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="mb-2">
+                                                <label for="description" class="col-form-label">Description :</label>
+                                                <textarea class="form-control" id="description" name="description" [(ngModel)]="description" required placeholder="Entrez la description du produit"></textarea>
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Les boutons de modal footer -->
+                                        <div class="modal-footer col-md-12">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn btn-success" [disabled]="produitForm.invalid">Ajouter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Mise à jour -->
+                       <!-- Modal pour la mise à jour du produit -->
+                            <div class="modal fade" id="UpdateProduitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Mise à jour du produit</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="alert alert-danger my-1 custom-alert" role="alert" *ngIf="errorMessageUpdate">
+                                            {{ errorMessageUpdate }}
+                                        </div>
+                                        
+                                        <div class="alert alert-success my-1 custom-alert" role="alert" *ngIf="successMessageUpdate">
+                                            {{ successMessageUpdate }}
+                                        </div>
+
+                                        <div class="modal-body p-4">
+                                            <!-- Formulaire de mise à jour pré-rempli avec les données du produit sélectionné -->
+                                            <form #updateProduitForm="ngForm" (ngSubmit)="updateProduit()" class="row g-3">
+                                                <div class="col-md-12">
+                                                    <label for="nom" class="col-form-label">Nom :</label>
+                                                    <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="selectedProduit.nom" required>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label for="reference" class="col-form-label">Référence :</label>
+                                                    <input type="text" class="form-control" id="reference" name="reference" [(ngModel)]="selectedProduit.reference" required placeholder="Entrez la référence du produit">
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <label for="categorie" class="col-form-label">Catégorie :</label>
+                                                    <select class="form-select" aria-label="Default select example" id="categorie" [(ngModel)]="selectedProduit.categorie" (change)="setDefaultCategoryDescription()" name="categorie" required>
+                                                        <option selected disabled hidden>Choisissez une catégorie</option>
+                                                        <option value="Tissus">Tissus</option>
+                                                        <option value="Accessoires de couture">Accessoires de couture</option>
+                                                        <option value="Matériel de coupe">Matériel de coupe</option>
+                                                        <option value="Équipement de finition">Équipement de finition</option>
+                                                        <!-- Ajoutez d'autres options selon vos besoins -->
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-md-12">
+                                                    <label for="description" class="col-form-label">Description :</label>
+                                                    <textarea class="form-control" id="description" name="description" [(ngModel)]="selectedProduit.description" required placeholder="Entrez la description du produit"></textarea>
+                                                </div>
+
+                                                <!-- Ajoutez les autres champs avec [(ngModel)]="selectedProduit.xxx" pour les pré-remplir -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                                    <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                    
+                    <!-- New table structure -->
+                    <div style="overflow-y: auto; max-height: 300px;">
+                        <table class="table table-striped table-hover " >
+                            <thead class="table-dark" style="position: sticky; top: 0;">
+                                <tr>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Nom</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Référence</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Catégorie</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Description</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Supprimer</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Modifier</th>
+                                </tr>
+                            </thead>
+                            <tbody style="overflow-y: auto; max-height: calc(100% - 2.5em);">
+                                <ng-container *ngIf="produits.length > 0; else emptyState">
+                                    <tr *ngFor="let produit of produits">
+                                        <td class="text-center align-middle" >{{ produit.nom }}</td>
+                                        <td class="text-center align-middle" >{{ produit.reference }}</td>
+                                        <td class="text-center align-middle" >{{ produit.categorie }}</td>
+                                        <td class="text-center align-middle" >{{ produit.description }}</td>
+                                        <td class="text-center align-middle" ><i class="bi bi-x-circle-fill text-danger" (click)="deleteProduit(produit.produitId)"></i></td>
+                                        <td class="text-center align-middle" ><i class="bi bi-gear-fill text-primary"  data-bs-toggle="modal" (click)="selectProduitForUpdate(produit)" data-bs-target="#UpdateProduitModal"></i></td>
+                                    </tr>
+                                </ng-container>
+                                <ng-template #emptyState>
+                                    <tr>
+                                        <td colspan="12"  class="text-center align-middle">Aucune donnée disponible</td>
+                                    </tr>
+                                </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

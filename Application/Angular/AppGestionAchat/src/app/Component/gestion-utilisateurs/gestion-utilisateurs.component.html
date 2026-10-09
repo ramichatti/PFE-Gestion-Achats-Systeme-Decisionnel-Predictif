@@ -1,0 +1,290 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <div class="card-header  text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Gestion des utilisateurs</div>
+                <div class="card-body">
+                    <!-- Modifiez votre HTML pour inclure une alerte Bootstrap -->
+                    <div class="alert alert-success my-3" role="alert" *ngIf="successMessageDelete">
+                        {{ successMessageDelete }}
+                    </div>
+                    <div class="alert alert-danger my-3" role="alert" *ngIf="errorMessageDelete">
+                        {{ errorMessageDelete }}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="r-flex justify-content-end ">
+                            <button type="button" class="btn btn-dark " style="background-color: #5c838a; border: white;" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="bi bi-person-plus-fill"></i></button>
+                        </div>
+                        <button type="button" class="btn btn-dark ms-2" style="background-color: #5c838a; border: white;" (click)="refresh()">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </button>
+                    
+                        <div class="input-group">
+                            <input type="text" class="form-control small-input" placeholder="Rechercher par nom" [(ngModel)]="nomRecherche">
+                            <button class="btn btn-dark" type="button"   style="background-color: #5c838a; border: white;" (click)="searchUser()"><i class="bi bi-search"></i></button>
+                        </div>
+                    </div>
+
+                    <p class="card-text text-muted mb-3">
+                       
+La gestion des utilisateurs du système englobe la création, la modification et la suppression de comptes d'utilisateur. Cependant, suspendre un compte demeure souvent préférable à sa suppression, offrant une mesure de sécurité plus prudente et réversible.
+                    </p>
+                    
+                    
+                    <!-- Ajouter -->
+                                        
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Nouveau utilisateur</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                
+                                <div class="alert alert-danger my-1 custom-alert" role="alert" *ngIf="errorMessageAjoute">
+                                    {{ errorMessageAjoute }}
+                                </div>
+                                
+                                <div class="alert alert-success my-1 custom-alert" role="alert" *ngIf="successMessageAjoute">
+                                    {{ successMessageAjoute }}
+                                </div>
+                                
+                                <div class="modal-body p-4">
+                                    <form #userForm="ngForm" (ngSubmit)="addUser()" class="row g-3">
+                                        <!-- Première colonne -->
+                                        <div class="col-md-6">
+                                            <div class="mb-2">
+                                                <label for="nom" class="col-form-label">Nom :</label>
+                                                <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="nom" required placeholder="Entrez votre nom">
+                                            </div>
+                                
+                                            <div class="mb-2">
+                                                <label for="prenom" class="col-form-label">Prénom :</label>
+                                                <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="prenom" required placeholder="Entrez votre prénom">
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Deuxième colonne -->
+                                        <div class="col-md-6">
+                                            <div class="mb-2">
+                                                <label for="adresse" class="col-form-label">Adresse :</label>
+                                                <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="adresse" required placeholder="Entrez votre adresse">
+                                            </div>
+                                
+                                            <div class="mb-2">
+                                                <label for="contact" class="col-form-label">Contact :</label>
+                                                <input type="text" class="form-control" id="contact" name="contact" [(ngModel)]="contact" required placeholder="Entrez votre numéro">
+                                            </div>
+                                        </div>
+                                
+                                        <!-- Ajoutez les autres champs ici -->
+                                
+                                        <div class="col-md-6">
+                                            <div class="mb-2">
+                                                <label for="email" class="col-form-label">Email :</label>
+                                                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required placeholder="Entrez votre adresse email">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="col-md-6">
+                                            <div class="mb-2">
+                                                <label for="mdp" class="col-form-label">Mot de passe :</label>
+                                                <input type="password" class="form-control" id="mdp" name="mdp" [(ngModel)]="mdp" required placeholder="Entrez votre mot de passe">
+                                            </div>
+                                        </div>
+                                
+                                        <div class="col-md-6">
+                                            <label for="role" class="col-form-label">Rôle :</label>
+                                            <select class="form-select" aria-label="Default select example" id="role" [(ngModel)]="role" name="role" required>
+                                                <option value="" disabled selected>Choisissez un rôle</option>
+                                                <option value="USER">USER</option>
+                                                <option value="DIRECTEUR_ACHAT">DIRECTEUR_ACHAT</option>
+                                                <option value="RESPONSABLE_ACHAT">RESPONSABLE_ACHAT</option>
+                                                <option value="FOURNISSEUR">FOURNISSEUR</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="role === 'USER'">
+                                            <div class="mb-2">
+                                                <label for="departement" class="col-form-label">Département :</label>
+                                                <select class="form-select" aria-label="Default select example" id="dept" [(ngModel)]="dept" name="dept" required>
+                                                    <option value="" disabled selected>Choisir un département</option>
+                                                    <option value="Équipe finition">Équipe finition</option>
+                                                    <option value="Équipe production">Équipe production</option>
+                                                    <option value="Équipe qualité">Équipe qualité</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="role === 'FOURNISSEUR'">
+                                            <label for="fournisseur" class="col-form-label">Fournisseur :</label>
+                                            <select class="form-select" aria-label="Default select example" id="fournisseur" [(ngModel)]="selectedFournisseur" name="fournisseur" required>
+                                                <option value="" disabled selected>Choisissez un fournisseur</option>
+                                                <option *ngFor="let fournisseur of fournisseurs" [ngValue]="fournisseur">{{ fournisseur.nom }} {{ fournisseur.prenom }}</option>
+                                            </select>
+                                        </div>
+                                
+                                        <!-- Les boutons de modal footer -->
+                                        <div class="modal-footer col-md-12">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn btn-success" [disabled]="userForm.invalid || (role === 'USER' && !dept) || !role">Ajouter</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mise à jour -->
+
+                    <!-- Modal pour la mise à jour -->
+                    <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Mise à jour utilisateur</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="alert alert-danger my-1 custom-alert" role="alert" *ngIf="errorMessageUpdate">
+                                    {{ errorMessageUpdate }}
+                                </div>
+                                
+                                <div class="alert alert-success my-1 custom-alert" role="alert" *ngIf="successMessageUpdate">
+                                    {{ successMessageUpdate }}
+                                </div>
+
+                                <div class="modal-body">
+                                    <!-- Formulaire de mise à jour pré-rempli avec les données de l'utilisateur sélectionné -->
+                                    <form #updateUserForm="ngForm" (ngSubmit)="updateUser()" class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="nom" class="col-form-label">Nom :</label>
+                                            <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="selectedUser.first_name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="prenom" class="col-form-label">Prénom :</label>
+                                            <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="selectedUser.last_name" required placeholder="Entrez votre prénom">
+                                        </div>
+                            
+                                        <!-- Deuxième colonne -->
+                                        <div class="col-md-6">
+                                            <label for="adresse" class="col-form-label">Adresse :</label>
+                                            <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="selectedUser.adresse" required placeholder="Entrez votre adresse">
+                                        </div>
+                            
+                                        <div class="col-md-6">
+                                            <label for="contact" class="col-form-label">Contact :</label>
+                                            <input type="text" class="form-control" id="contact" name="contact" [(ngModel)]="selectedUser.contact" required placeholder="Entrez votre numéro">
+                                        </div>
+                            
+                                        <!-- Ajoutez les autres champs ici -->
+                            
+                                        <div class="col-md-6">
+                                            <label for="email" class="col-form-label">Email :</label>
+                                            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="selectedUser.email" required placeholder="Entrez votre adresse email">
+                                        </div>
+                            
+                                        <div class="col-md-6">
+                                            <label for="mdp" class="col-form-label">Mot de passe :</label>
+                                            <input type="password" class="form-control" id="mdp" name="mdp" [(ngModel)]="selectedUser.password" required placeholder="Entrez votre mot de passe">
+                                        </div>
+                            
+                                        <div class="col-md-6">
+                                            <label for="role" class="col-form-label">Rôle :</label>
+                                            <select class="form-select" aria-label="Default select example" id="role" [(ngModel)]="selectedUser.role" name="role" required>
+                                                <option selected disabled >Choisissez un rôle</option>
+                                                <option value="USER">USER</option>
+                                                <option value="DIRECTEUR_ACHAT">DIRECTEUR_ACHAT</option>
+                                                <option value="RESPONSABLE_ACHAT">RESPONSABLE_ACHAT</option>
+                                                <option value="FOURNISSEUR">FOURNISSEUR</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Champ pour le département -->
+                                        <div class="col-md-6" *ngIf="selectedUser.role === 'USER'">
+                                            <label for="departement" class="col-form-label">Département :</label>
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedUser.dept" name="dept" required>
+                                                <option value="" disabled selected>Choisissez un département</option>
+                                                <option value="Équipe finition">Équipe finition</option>
+                                                <option value="Équipe production">Équipe production</option>
+                                                <option value="Équipe qualité">Équipe qualité</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-6" *ngIf="selectedUser.role === 'FOURNISSEUR'">
+                                            <label for="fournisseur" class="col-form-label">Fournisseur :</label>
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedFournisseur" name="fournisseur" required>
+                                                <option value="" disabled selected>Choisissez un fournisseur</option>
+                                                <option *ngFor="let fournisseur of fournisseurs" [ngValue]="fournisseur">{{ fournisseur.nom }} {{ fournisseur.prenom }}</option>
+                                            </select>
+                                        </div>
+                                        
+
+                                        <!-- Ajoutez les autres champs avec [(ngModel)]="selectedUser.xxx" pour les pré-remplir -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                            <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New table structure -->
+                        <!-- Affichage des détails de la demande ici -->
+                    
+                        <div style="overflow-y: auto; max-height: 300px;">
+                            <table class="table table-striped table-hover" >
+                                <thead class="table-dark hover" style="position: sticky; top: 0;" >
+                                    <tr>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;"  colspan="3">Utilisateurs</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Email</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Departement</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Contact</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Adresse</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Role</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;" colspan="1">Status</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;" >Supprimer</th>
+                                        <th class="text-center align-middle" style=" background-color: #5c838a;">Modifier</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="overflow-y: auto; max-height: calc(100% - 2.5em);" >
+                                    <ng-container *ngIf="users.length > 0; else emptyState">
+                                        
+                                    <tr *ngFor="let user of users" >
+                                        <td colspan="3" style="width: 500px;">
+                                            <img *ngIf="user.image" [src]="convertImageToUrl(user.image)"  class="rounded-circle" width="50" height="50"> &nbsp;&nbsp;&nbsp;{{ user.first_name }} {{ user.last_name }}
+                                        </td>
+
+                                        <td class="text-center align-middle">{{ user.email }}</td>
+                                        <td class="text-center align-middle">{{ user.dept ? user.dept : '-' }}</td>
+                                        <td class="text-center align-middle">{{ user.contact }}</td>
+                                        <td class="text-center align-middle">{{ user.adresse }}</td>
+                                        <td class="text-center align-middle">{{ user.role }}</td>
+                                        <td class="text-center align-middle"><div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"  [checked]="user.bloquer" (change)="updateUserStatus(user.userId)">
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">{{ user.bloquer ? 'Bloquer' : 'Actif' }}</label>
+                                          </div></td>
+                                        <td class="text-center align-middle" v><i class="bi bi-person-x-fill text-danger" (click)="deleteUser(user.userId)"></i></td>
+                                        <td class="text-center align-middle" ><i class="bi bi-person-fill-gear text-primary" (click)="selectUserForUpdate(user)" data-bs-toggle="modal" data-bs-target="#UpdateModal"></i></td>
+                                       
+                                    </tr>
+                                </ng-container>
+                                <ng-template #emptyState>
+                                    <tr>
+                                        <td colspan="12" class="text-center align-middle">Aucune donnée disponible</td>
+                                    </tr>
+                                </ng-template>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>

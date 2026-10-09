@@ -1,0 +1,114 @@
+<!-- commande.component.html -->
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <div class="card-header  text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Commande en cours</div>
+                <div class="card-body">
+                    <p class="card-text text-muted mb-3">
+                        Ici, vous pouvez visualiser les commandes en cours de livraison. Pour chaque commande, vous avez la possibilité de voir les détails en cliquant sur le bouton correspondant.
+                    </p>
+                    <div style="overflow-y: auto; max-height: 300px;">
+                        <table class="table table-striped table-hover" >
+                            <thead class="table-dark" style="position: sticky; top: 0; ">
+                                <tr>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">N° Commande</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Client</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Date de livraison</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Montant HT</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Montant TVA</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Montant TTC</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Status</th>
+                                    <th class="text-center align-middle" style=" background-color: #5c838a;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngIf="commandes.length > 0; else emptyState">
+                                    <tr *ngFor="let commande of commandes" (click)="selectCommande(commande)">
+                                        <td class="text-center align-middle" >{{ commande.idCommande }}</td>
+                                        <td class="text-center align-middle" > <img [src]="imageUrl" class="rounded-circle" width="50" height="50"> &nbsp;&nbsp;&nbsp;{{ information_societe.nom }} </td>
+                                        <td class="text-center align-middle" >{{ commande.livraison | date: 'yyyy-MM-dd' }}</td>
+                                        <td class="text-center align-middle" >{{ commande.totalHt }}</td>
+                                        <td class="text-center align-middle" >{{ commande.totalTva }}</td>
+                                        <td class="text-center align-middle" >{{ commande.prix }}</td>
+                                        <td class="text-center align-middle"  
+                                            [ngClass]="{
+                                                'bg-warning': commande.status === 'En cours de livraison'
+                                            }" 
+                                            [style.color]="commande.status === 'En cours de livraison' ? 'white' : 'inherit'">
+                                            {{ commande.status }}
+                                        </td>
+
+                                        <td class="text-center align-middle" >
+                                            <button type="button" class="btn btn-dark"  style="background-color: #5c838a; border: white;" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#VoirLigneCommande">Détails</button>
+                                        </td>
+                                        
+                                    </tr>
+                                </ng-container>
+                                
+                                <ng-template #emptyState>
+                                    <tr>
+                                        <td colspan="12"  class="text-center align-middle">Aucune donnée disponible</td>
+                                    </tr>
+                                </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour voir les détails de la commande -->
+<div class="modal fade" id="VoirLigneCommande" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (shown.bs.modal)="loadLigneCommande()">
+    <div class="modal-dialog modal-xl custom-modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Détails de la commande</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Corps de la modal -->
+            <div class="modal-body">
+                <div style="overflow-y: auto; max-height: 300px;">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark" style="position: sticky; top: 0;">
+                            <tr>
+                                <th class="text-center align-middle">Produit</th>
+                                <th class="text-center align-middle">Référence</th>
+                                <th class="text-center align-middle">Catégorie</th>
+                                <th class="text-center align-middle">Quantité</th>
+                                <th class="text-center align-middle">PU HT (TND)</th>
+                                <th class="text-center align-middle">% Remise</th>
+                                <th class="text-center align-middle">Montant HT</th>
+                                <th class="text-center align-middle">% TVA</th>
+                                <th class="text-center align-middle">Montant TVA</th>
+                                <th class="text-center align-middle">Montant TTC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of ligneCommande">
+                                <td class="text-center align-middle">{{ item.produitName }}</td>
+                                <td class="text-center align-middle">{{ item.reference }}</td>
+                                <td class="text-center align-middle">{{ item.categorie }}</td>
+                                <td class="text-center align-middle">{{ item.quantite }}</td>
+                                <td class="text-center align-middle">{{ item.prixUnitaire }}</td>
+                                <td class="text-center align-middle">{{ item.remise }}</td>
+                                <td class="text-center align-middle">{{ item.montantHT }}</td>
+                                <td class="text-center align-middle">{{ item.tva }}</td>
+                                <td class="text-center align-middle">{{ item.montantTVA }}</td>
+                                <td class="text-center align-middle">{{ item.ttc }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,198 @@
+.custom-alert {
+    font-size: 15px; /* Changer la taille de la police */
+    margin: 15px; /* Ajouter une marge de 10px autour de la div */
+    padding: 15px; /* Ajouter un rembourrage de 10px à l'intérieur de la div */
+    text-align: center; /* Centre le texte à l'intérieur de l'alerte */
+}
+.small-input {
+    width: 150px; /* Vous pouvez ajuster cette valeur en fonction de vos besoins */
+    margin-left: 600px;
+}
+
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Ombre au milieu de l'écran */
+    z-index: 10000; /* Assure que l'alerte apparaîtra au-dessus de tout autre contenu */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Couleur verte pour les alertes de succès */
+    color: #155724; /* Couleur du texte pour les alertes de succès */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Couleur rouge pour les alertes d'erreur */
+    color: #721c24; /* Couleur du texte pour les alertes d'erreur */
+}
+
+
+#imageProfile {
+    display: block; /* Pour centrer l'image horizontalement */
+    margin: 0 auto; /* Pour centrer l'image horizontalement */
+    width: 40%; /* Largeur à 50% du conteneur parent */
+    height: auto; /* Hauteur automatique pour conserver les proportions de l'image */
+    border: 2px solid #ccc; /* Ajouter une bordure de 1px solide avec la couleur grise */
+    border-radius: 5px; /* Ajouter un arrondi aux coins */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ajouter une ombre légère */
+  }
+
+.img_profile{
+
+    margin-top: 19px; /* Adjust margin size as needed */
+    
+}
+
+.custom-card {
+    margin-top: 150px; /* Adjust the margin-top value as needed */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Assure que le contenu est centré verticalement */
+}
+  
+  .left {
+    left: 20px;
+  }
+  
+  .right {
+    right: 20px;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .bottom {
+    position: absolute;
+    bottom: 25px;
+  }
+  
+  #gradient {
+    background: #999955;
+    background-image: linear-gradient(#88a1a5 20%, #849ca0 20%, #608085 40%, #51747a 40%, #42585c 60%, #3d5d63 60%, #3a5054 80%, #222D2F 80%);
+    margin: 0 ;
+    margin-top: 360px;
+    width: 100%;
+    height: 150px;
+  }
+  
+  #gradient:after {
+    content: "";
+    position: absolute;
+    background: #cad9db;
+    left: 50%;
+    margin-top: -150.5px;
+    margin-left: -330px;
+    padding-left: 20px;
+    border-radius: 5px;
+    width: 690px;
+    height: 450px;
+    z-index: -1;
+  }
+  
+  #card {
+    position: absolute;
+    width: 610px;
+    height: 400px;
+    padding: 25px;
+    padding-top: 0;
+    padding-bottom: 0;
+    left: 46.5%;
+    top: 44px;
+    margin-top: 190px;
+    margin-left: -235px;
+    background: #afc6c9;
+    box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+    z-index: 5;
+    border-radius: 5px;
+    
+  }
+  
+  #card img {
+    width: 200px;
+    float: left;
+    margin-top: 85px;
+    margin-left: 40px;
+    margin-right: 20px;
+    border-radius: 50%;
+  
+  }
+  
+  #card h4 {
+    font-family: courier;
+    color: #333;
+    margin-top: 100px;
+    margin-left: 300px;
+    padding: 0;
+    font-size: 18pt;
+  }
+  
+  #card p {
+    font-family: courier;
+    color: #555;
+    font-size: 15px;
+    margin-left: 300px;
+  }
+  a
+  #card span {
+    font-family: courier;
+  }
+
+  .container {
+    max-width: 4200px; /* Définissez la largeur maximale du conteneur */
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+}
+html {
+  height:100%;
+}
+
+body {
+  margin:0;
+}
+
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #dfedf0 50%, #bed3d6 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:4s;
+}
+
+.bg3 {
+  animation-duration:5s;
+}
+
+
+h1 {
+  font-family:monospace;
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
+}

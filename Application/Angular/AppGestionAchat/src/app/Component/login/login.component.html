@@ -1,0 +1,50 @@
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<div class="area">
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <ul class="circles1">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <div class="body">
+    <div class="main">
+      <input type="checkbox" id="chk" aria-hidden="true">
+      <div class="signup" [style.backgroundImage]="'url(' + imageUrl + ')'"></div>
+      <div class="login">
+        <form (ngSubmit)="onSubmit()">
+          <label for="chk" aria-hidden="true">Connexion</label>
+          <h6 for="email">Email</h6>
+          <input type="text" id="email" name="username" [(ngModel)]="email" placeholder="Entrez votre adresse e-mail" required/>
+          <h6 for="password">Mot de passe</h6>
+          <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="Entrez votre mot de passe" required/><br>
+          <button type="submit">Se Connecter</button>
+          <br>
+          <p class="message">Mot de passe oublié ? <a  style="color: #DBAF48;" routerLink="/mdp_oublie">Clique ici</a></p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="alert alert-danger my-3" role="alert" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>

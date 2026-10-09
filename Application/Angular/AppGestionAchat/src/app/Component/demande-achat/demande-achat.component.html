@@ -1,0 +1,173 @@
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card custom-card">
+                <div class="card-header text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Demande d'achat</div>
+                <div class="card-body">
+
+                    <!-- Description de l'utilisateur avec style -->
+                    <p class="card-text text-muted mb-3">
+                        Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d'achat. Une fois soumise, notre responsable des achats examinera votre demande et vous fournira une réponse dans les plus brefs délais,<br/> Vous avez également la possibilité de supprimer une demande en cours de traitement si nécessaire.
+                    </p>
+                    
+                            <div class="container mt-3">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <!-- Card gauche pour la gestion des utilisateurs -->
+                                            <div class="card" style="  height: 100%;">
+                                                <div class="card-header  text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Passer une demande</div>
+                                                <div class="card-body">
+                                                    <form class="row g-3" (ngSubmit)="submitForm()" #demandeForm="ngForm">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Nom :</label>
+                                                            <span class="form-control">{{ nomDemandeurParDefaut }}</span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Prénom :</label>
+                                                            <span class="form-control">{{ prenomDemandeurParDefaut }}</span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Département :</label>
+                                                            <span class="form-control">{{ serviceDepartement }}</span>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Date :</label>
+                                                            <input type="date" class="form-control" [(ngModel)]="dateDemande" name="dateDemande" required readonly>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label class="form-label">Quantité :</label>
+                                                            <input type="number" class="form-control" [(ngModel)]="quantite" name="quantite" required min="1">
+                                                            <div *ngIf="demandeForm && demandeForm.controls['quantite'] && demandeForm.controls['quantite'].invalid && demandeForm.controls['quantite'].touched" class="text-danger"></div>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <label class="form-label">Produit :</label>
+                                                            <select class="form-select" [(ngModel)]="selectedProduct" name="selectedProduct" required (change)="onProductSelect()">
+                                                                <option value="" disabled selected>Choisir un produit</option>
+                                                                <option *ngFor="let product of products" [ngValue]="product">{{ product.nom }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 text-center"> <!-- Ajout de la classe text-center pour centrer le contenu -->
+                                                            <button class="btn btn-secondary " type="button" style="background-color: #5c838a;" data-bs-toggle="modal" data-bs-target="#confirmationModal" [disabled]="!demandeForm?.valid">Passer</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <!-- Deuxième carte à droite -->
+                                            <div class="card" style="height: 100%;">
+                                                <div class="card-header  text-white" style="font-family: serif; background-color: #5c838a; font-weight: bold;">Détails de la demande</div>
+                                                <div class="card-body">
+                                                    <!-- Affichage des détails de la demande ici -->
+                                                    <div style="max-height: 300px; overflow-y: auto;">
+                                                        <table class="table table-striped table-hover" >
+                                                            <thead class="table-dark" style="position: sticky; top: 0;">
+                                                                <tr>
+                                                                    <th scope="col" style=" background-color: #5c838a;"class="text-center align-middle">N° Demande</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;"class="text-center align-middle">Département</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;"class="text-center align-middle">Produit</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;"class="text-center align-middle">Date</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;"class="text-center align-middle">Quantité</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;" class="text-center align-middle">Statut</th>
+                                                                    <th scope="col" style=" background-color: #5c838a;" class="text-center align-middle">Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody style="overflow-y: auto; max-height: calc(100% - 2.5em);">
+                                                                <ng-container *ngIf="demandes.length > 0; else emptyState">
+                                                                    <tr *ngFor="let demande of demandes">
+                                                                        <td class="text-center align-middle" >{{ demande.demandeId }}</td>
+                                                                        <td class="text-center align-middle" >{{ demande.dept }}</td>
+                                                                        <td class="text-center align-middle" >{{ demande.produitName }}</td>
+                                                                        <td class="text-center align-middle" >{{ demande.date | date: 'yyyy-MM-dd' }}</td> 
+                                                                        <td class="text-center align-middle" >{{ demande.qte }}</td>
+                                                                        <td class="text-center align-middle"  [ngClass]="{
+                                                                            'bg-primary': demande.statut === 'En cours de traitement',
+                                                                            'bg-warning': demande.statut === 'En cours de livraison',
+                                                                            'bg-success': demande.statut === 'Accepté',
+                                                                            'bg-dark': demande.statut === 'Devis en cours'
+                                                                        }" [style.color]="demande.statut === 'En cours de traitement' || demande.statut === 'En cours de livraison' || demande.statut === 'Accepté' || demande.statut === 'Devis en cours' ? 'white' : 'inherit'">{{ demande.statut }}</td>
+                                                                    <td class="text-center align-middle" >
+                                                                        <!-- Icône de suppression avec événement de clic -->
+                                                                        <i *ngIf="demande.statut === 'En cours de traitement'" class="bi bi-x-circle-fill text-danger" (click)="confirmDeleteDemandeAchat(demande.demandeId)" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal"></i>
+                                                                        <i *ngIf="demande.statut !== 'En cours de traitement'" class="bi bi-x-circle-fill text-secondary disabled"></i>
+                                                                    </td>
+                                                                    </tr>
+                                                                </ng-container>
+                                                                <ng-template #emptyState>
+                                                                    <tr>
+                                                                        <td colspan="7"  class="text-center align-middle">Aucune donnée disponible</td>
+                                                                    </tr>
+                                                                </ng-template>
+                                                            </tbody>
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-success my-3" role="alert" *ngIf="successMessageDelete">
+                                    {{ successMessageDelete }}
+                                </div>
+                                <div class="alert alert-danger my-3" role="alert" *ngIf="errorMessageDelete">
+                                    {{ errorMessageDelete }}
+                                </div>
+
+                                <div class="alert alert-danger my-1 custom-alert" role="alert" *ngIf="errorMessageAjoute">
+                                    {{ errorMessageAjoute }}
+                                </div>
+
+                                <div class="alert alert-success my-1 custom-alert" role="alert" *ngIf="successMessageAjoute">
+                                    {{ successMessageAjoute }}
+                                </div>
+
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content modal-dark">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        Êtes-vous sûr de vouloir passer cette demande ?
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="resetFormFields()">Annuler</button>
+                                        <button type="button" class="btn btn-primary" (click)="submitForm()">Confirmer</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                
+
+                                <!-- Modal de confirmation de suppression -->
+                                <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirmation de suppression</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        Êtes-vous sûr de vouloir supprimer cette demande ?
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                        <button type="button" class="btn btn-danger" (click)="deleteConfirmed()" data-bs-dismiss="modal">Confirmer</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

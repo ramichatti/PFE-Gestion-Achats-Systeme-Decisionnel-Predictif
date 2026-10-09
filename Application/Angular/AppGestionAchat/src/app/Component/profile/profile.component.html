@@ -1,0 +1,170 @@
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="container ">
+  < <div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card custom-card">
+      <div class="card-header  text-white" style="background-color: #5c838a; font-family: serif; font-weight: bold;">Profile</div>
+      <div class="card-body d-flex flex-column">
+          <div class="container mt-3">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card mb-3 h-100">
+                    <div class="card-body text-center">
+                        <img   [src]="userImage" alt="User"  class="rounded-circle profile-image img-thumbnail mt-2" width="150" >
+                          <div class="mt-3">
+                        <h4 class="text-uppercase"  style="color: #5c838a;  font-family: courier; font-weight: bold;">{{ userProfile.firstName }} {{ userProfile.lastName }}</h4>
+                        <p class="text-secondary mb-1" style=" font-family: courier; font-weight: bold; "> {{ userProfile.email }}</p>
+                        <!-- Bouton de mise à jour sombre -->
+                        <button class="btn btn-dark btn-sm mt-2" style="background-color: #5c838a; border: transparent;" data-bs-toggle="modal" data-bs-target="#UpdateModal">
+                          <i class="bi bi-person-fill-gear fs-5"></i>
+                      </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="col-md-8">
+                  <div class="card mb-3 h-100">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0 text-center" style="color: #2f4d52;  font-family: courier; font-weight: bold; ">Nom :</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary"  style=" font-family: courier; font-weight: bold;">
+                            {{ userProfile.firstName }}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0 text-center"  style="color: #2f4d52;  font-family: courier; font-weight: bold;">Prénom :</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary"  style=" font-family: courier; font-weight: bold;">
+                            {{ userProfile.lastName }}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0 text-center"  style="color: #2f4d52;  font-family: courier; font-weight: bold;">Email :</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary"  style=" font-family: courier; font-weight: bold;">
+                            {{ userProfile.email }}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                              <h6 class="mb-0 text-center"  style="color: #2f4d52;  font-family: courier; font-weight: bold;">Role :</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary"  style=" font-family: courier; font-weight: bold;">
+                              {{ userProfile.role }}
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3 text-center" >
+                              <h6 class="mb-0"  style="color: #2f4d52;  font-family: courier; font-weight: bold;">Adresse :</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary"  style=" font-family: courier; font-weight: bold;">
+                              {{ userProfile.adresse }}
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-sm-3 text-center">
+                              <h6 class="mb-0 "  style="color: #2f4d52;  font-family: courier; font-weight: bold;">Contact :</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" style=" font-family: courier; font-weight: bold;">
+                              {{ userProfile.contact }}
+                            </div>
+                          </div>
+                         
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+      </div>
+  </div>
+      
+
+      <!-- Modal de mise à jour -->
+      <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Mise à jour du profil</h5>
+              <!-- Bouton pour fermer la modal -->
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Messages d'erreur ou de succès -->
+            <div class="alert alert-danger my-1 custom-alert" role="alert" *ngIf="errorMessageUpdate">
+              {{ errorMessageUpdate }}
+            </div>
+            <div class="alert alert-success my-1 custom-alert" role="alert" *ngIf="successMessageUpdate">
+              {{ successMessageUpdate }}
+            </div>
+
+            <div class="modal-body">
+              <!-- Formulaire de mise à jour pré-rempli avec les données de l'utilisateur -->
+              <form id="updateUserForm" class="row g-3">
+                <!-- Image de profil -->
+                <div class="col-md-12">
+                  <img [src]="userImage" class="img-thumbnail mt-2" style="border-radius: 50%;" alt="Image de profil" id="imageProfile">
+                </div>
+                <!-- Champ nom -->
+                <div class="col-md-6">
+                  <label for="nom" class="col-form-label">Nom :</label>
+                  <input type="text" class="form-control" id="nom" name="nom" [(ngModel)]="userProfile.firstName" disabled>
+                </div>
+                <!-- Champ prénom -->
+                <div class="col-md-6">
+                  <label for="prenom" class="col-form-label">Prénom :</label>
+                  <input type="text" class="form-control" id="prenom" name="prenom" [(ngModel)]="userProfile.lastName" disabled>
+                </div>
+                <!-- Champ email -->
+                <div class="col-md-6">
+                  <label for="email" class="col-form-label">Email :</label>
+                  <input type="email" class="form-control" id="email" name="email" [(ngModel)]="userProfile.email" disabled>
+                </div>
+                <!-- Champ rôle -->
+                <div class="col-md-6">
+                  <label for="role" class="col-form-label">Rôle :</label>
+                  <input type="text" class="form-control" id="role" name="role" [(ngModel)]="userProfile.role" disabled>
+                </div>
+                <!-- Champ adresse -->
+                <div class="col-md-6">
+                  <label for="adresse" class="col-form-label">Adresse :</label>
+                  <input type="text" class="form-control" id="adresse" name="adresse" [(ngModel)]="userProfile.adresse">
+                </div>
+                <!-- Champ contact -->
+                <div class="col-md-6">
+                  <label for="contact" class="col-form-label">Contact :</label>
+                  <input type="text" class="form-control" id="contact" name="contact" [(ngModel)]="userProfile.contact">
+                </div>
+                <!-- Champ pour télécharger une image -->
+                <div class="col-md-12">
+                  <label for="image" class="col-form-label">Image :</label>
+                  <input type="file" class="form-control" id="image" name="image" (change)="onFileSelected($event)">
+                </div>
+                <!-- Boutons de la modal -->
+                <div class="modal-footer">
+                  <!-- Bouton pour fermer la modal -->
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                  <!-- Bouton pour enregistrer les modifications -->
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateUserImage(); updateUser()">Enregistrer les modifications</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -1,0 +1,89 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<nav class="navbar navbar-expand-lg navbar-dark "  style="font-family: serif; background-color: #264e54;">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+      
+      <div class="cube-container">
+        <div class="cube">
+          <div class="side front">
+            <img [src]="imageUrl" width="35" height="35" class="d-inline-block align-top" alt="">
+          </div>
+          <div class="side back">
+            <img [src]="imageUrl" width="35" height="35" class="d-inline-block align-top" alt="">
+          </div>
+          <div class="side left">
+            <img [src]="imageUrl" width="35" height="35" class="d-inline-block align-top" alt="">
+          </div>
+          <div class="side right">
+            <img [src]="imageUrl" width="35" height="35" class="d-inline-block align-top" alt="">
+          </div>
+        </div>
+      </div> 
+    </div>
+    <div class="color-changing me-5 ms-4" style="font-family: sans-serif;">{{ information_societe.nom }}</div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/fournisseur', 'accueil']">Accueil</a>
+          </li>
+
+          <li ngbDropdown class="nav-item dropdown">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button" ngbDropdownToggle aria-haspopup="true"
+              aria-expanded="false">
+              Devis
+            </a>
+            <ul ngbDropdownMenu class="dropdown-menu">
+              <li><a ngbDropdownItem class="dropdown-item" [routerLink]="['/fournisseur', 'devis']">Créer devis</a></li>
+              <li><a ngbDropdownItem class="dropdown-item" [routerLink]="['/fournisseur', 'resultat_devis']">Mes devis</a></li>
+            </ul>
+          </li>
+          
+
+          
+
+          <li ngbDropdown class="nav-item dropdown">
+            <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button" ngbDropdownToggle aria-haspopup="true"
+              aria-expanded="false">
+              Commandes vente
+            </a>
+            <ul ngbDropdownMenu class="dropdown-menu">
+              <li><a ngbDropdownItem class="dropdown-item" [routerLink]="['/fournisseur', 'commandes_vente_encours']">Commande en cours</a></li>
+              <li><a ngbDropdownItem class="dropdown-item" [routerLink]="['/fournisseur', 'commandes_vente_livré']">Commande livrée</a></li>
+            </ul>
+          </li>
+
+
+          
+         
+        </ul>
+
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto me-3"> <!-- Utilisation de ms-auto et me-2 pour aligner à droite avec un espacement -->
+          <li class="nav-item" *ngIf="email"> 
+            <li ngbDropdown class="nav-item dropdown">
+              <a ngbDropdownToggle class="nav-link dropdown-toggle" role="button" ngbDropdownToggle aria-haspopup="true"
+                aria-expanded="false" style=" font-weight: bold; font-size: 14px; font-family: sans-serif;">
+                BIENVENUE, {{ prenom  | uppercase}}&nbsp;&nbsp;&nbsp;
+              </a>
+              <p style="font-size: 10px; color: white; font-family: sans-serif; text-align: center;">{{ role }}</p>
+              <ul ngbDropdownMenu class="dropdown-menu">
+                <li><a ngbDropdownItem class="dropdown-item" [routerLink]="['/fournisseur', 'profile']">Profil&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-person-lines-fill"></i></a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a ngbDropdownItem class="dropdown-item" (click)="logout()" [routerLink]="['/login']">Déconnexion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-arrow-right-circle-fill"></i></a>
+                </li>
+              </ul>
+            </li>
+          
+        </ul>
+        <img [src]="userImage" alt="User" class="rounded-circle" width="50" height="50"> &nbsp;&nbsp;
+      </div>
+    </div>
+  </nav>
+
+  <router-outlet></router-outlet>

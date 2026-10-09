@@ -1,0 +1,379 @@
+
+.main {
+  width: 350px;
+  height: 500px;
+  background: rgb(246, 246, 246);
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: 5px 20px 50px #222D2F;
+}
+
+#chk {
+  display: none;
+}
+
+.signup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  background-position: center;
+}
+
+label {
+  color: #b49b68;
+  font-size: 2.3em;
+  margin-bottom: 40px;
+  justify-content: center;
+  display: flex;
+  margin: 62px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .5s ease-in-out;
+}
+h6{
+  
+  justify-content: center;
+  margin-left: 60px;
+
+}
+
+input {
+  width: 70%;
+  height: 30px;
+  background: #ffffffb0;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+input:focus {
+  background: #ffffffb0; /* Changer la couleur de fond lorsque l'input est en focus */
+}
+input:not(:placeholder-shown) {
+  background: #ffffffb0; /* Changer la couleur de fond lorsque l'input contient du texte */
+}
+button {
+  width: 40%;
+  height: 40px;
+  margin:  auto;
+  justify-content: center;
+  display: block;
+  color: #fff;
+  background: #DBAF48;
+  font-size: 1em;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  transition: .2s ease-in;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #dbaf48b2;
+}
+
+.login {
+  height: 460px;
+  background: #eee;
+  border-radius: 60% / 10%;
+  transform: translateY(-180px);
+  transition: .8s ease-in-out;
+}
+
+.login label {
+  color: #222D2F;
+  transform: scale(.6);
+}
+
+#chk:checked ~ .login {
+  transform: translateY(-500px);
+}
+
+#chk:checked ~ .login label {
+  transform: scale(0.8);  
+}
+
+#chk:checked ~ .signup label {
+  transform: scale(.6);
+}
+
+.message {
+  text-align: center;
+}
+
+.area{
+  background: #f2f5f5;  
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
+  width: 100%;
+  height:100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Jost', sans-serif;
+  
+}
+
+.circles{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li{
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: #222D2F;
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+  
+}
+
+.circles li:nth-child(1){
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+
+
+@keyframes animate {
+
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 0;
+  }
+
+  100%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 50%;
+  }
+
+}
+
+.circles1{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles1 li{
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: #222D2F;
+  animation: animate1 25s linear infinite;
+  bottom: -150px;
+  
+}
+
+.circles1 li:nth-child(1){
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 6s;
+}
+
+
+.circles1 li:nth-child(2){
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 5s;
+  animation-duration: 14s;
+}
+
+.circles1 li:nth-child(3){
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 6s;
+}
+
+.circles1 li:nth-child(4){
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 4s;
+  animation-duration: 19s;
+}
+
+.circles1 li:nth-child(5){
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 3s;
+}
+
+.circles1 li:nth-child(6){
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 6s;
+}
+
+.circles1 li:nth-child(7){
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 3s;
+}
+
+.circles1 li:nth-child(8){
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 10s;
+  animation-duration: 35s;
+}
+
+.circles1 li:nth-child(9){
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 4s;
+  animation-duration: 45s;
+}
+
+.circles1 li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 3s;
+  animation-duration: 18s;
+}
+@keyframes animate1 {
+
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 0;
+  }
+
+  100%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 50%;
+  }
+}
+
+
+.custom-alert {
+  font-size: 15px;
+  margin: 15px auto; /* Centre l'alerte horizontalement */
+  padding: 15px;
+  text-align: center;
+}
+
+.small-input {
+  width: 150px;
+  margin-left: 600px;
+}
+
+.alert {
+  position: fixed;
+  top: 2px; /* Ajuste la position verticale de l'alerte en haut de la page */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
